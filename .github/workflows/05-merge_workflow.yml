@@ -1,4 +1,4 @@
-name: Manually trigger an Azure Machine Learning job
+name: Trigger Azure Machine Learning jobs on dev and prod data
 
 on:
   push:
@@ -40,4 +40,4 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
       run: |
-        az ml job create --file src/prod_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"
+        az ml job create --file src/prod_job.yml --name "dev_job" --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"
