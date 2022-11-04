@@ -10,7 +10,7 @@ ignore =
     N,
     C,
     I
-max-line-length = 100
+max-line-length = 79
 exclude = 
     .tox,
     .git,
