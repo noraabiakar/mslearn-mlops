@@ -19,4 +19,4 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
       run: |
-        az ml job create --file src/dev_job.yml  --name "dev_job" --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"
+        az ml job create --file src/dev_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"
