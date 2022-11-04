@@ -5,6 +5,8 @@ on:
 
 jobs:
   train:
+    environment:
+      name: development
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
