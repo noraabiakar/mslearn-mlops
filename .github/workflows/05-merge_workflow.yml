@@ -40,4 +40,18 @@ jobs:
         creds: ${{secrets.AZURE_CREDENTIALS}}
     - name: Trigger Azure Machine Learning job
       run: |
-        az ml job create --file src/prod_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"
+        az ml job create --file src/prod_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws" --stream
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    needs:
+      - production
+    steps:
+      - run: |
+          az configure --defaults workspace="nabk-ml-ws" group="AzureML-tutorial"
+          az ml online-endpoint update --name "diabetes-prod-endpoint" -f endpoints/create-endpoint.yml
+          JOB_NAME=$(az ml job list --query "[?experiment_name == 'diabetes-data-prod'].name" --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws" | tr -d '[]\n" ')
+          az ml model create --name "mir-sample-sklearn-mlflow-model" --type "mlflow_model" --path "azureml://jobs/$JOB_NAME/outputs/artifacts/model"
+          az ml online-deployment create --name sklearn-deployment --endpoint "diabetes-prod-endpoint" -f endpoints/sklearn-deployment.yml --all-traffic
