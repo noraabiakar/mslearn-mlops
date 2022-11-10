@@ -30,7 +30,7 @@ pipeline {
 	stage('Azure login') {
 	    steps {
                 withCredentials([string(credentialsId: 'sp-app-id', variable: 'sp-app-id'), string(credentialsId: 'sp-tennant-id', variable: 'sp-tennant-id'), string(credentialsId: 'sp-password', variable: 'sp-password')]) {
-	        sh 'az login --service-principal -u sp-app-id -p sp-password --tenant sp-tennant-id'
+	        sh 'az login --service-principal -u $sp-app-id -p $sp-password --tenant $sp-tennant-id'
                 }
 	    }
 	}
