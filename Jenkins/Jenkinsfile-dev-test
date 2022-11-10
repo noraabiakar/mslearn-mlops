@@ -21,6 +21,12 @@ pipeline {
                 sh 'az extension add -n ml -y'
             }
         }
+	stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/feature/test14']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/noraabiakar/mslearn-mlops.git']]])
+                sh "ls -lart ./*"
+            }
+        } 
     }
     post {
         success {
