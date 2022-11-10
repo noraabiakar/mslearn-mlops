@@ -35,7 +35,9 @@ pipeline {
 	    }
 	}
 	stage('Train Azure ML job') {
-	    sh 'az ml job create --file src/dev_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"'
+	    steps {
+	        sh 'az ml job create --file src/dev_job.yml --resource-group "AzureML-tutorial" --workspace-name "nabk-ml-ws"'
+	    }
 	}
     }
     post {
