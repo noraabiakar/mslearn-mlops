@@ -10,7 +10,10 @@ void setBuildStatus(String message, String state) {
 
 pipeline {
     agent {
-        docker { image 'mcr.microsoft.com/azure-cli:latest' }
+        docker { 
+	    image 'mcr.microsoft.com/azure-cli:latest' 
+	    args "--user root --privileged"
+	}
     }
     stages {
         stage('Install az ml extension') {
