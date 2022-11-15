@@ -11,16 +11,10 @@ void setBuildStatus(String message, String state) {
 pipeline {
     agent {
         docker { 
-	        image 'python:3.10' 
-            args "--user root"
+	        image 'nabiakar/mslearn-jenkins:latest' 
 	    }
     }
     stages {
-        stage('install requirements') {
-            steps {
-                sh 'python3 -m pip install -r requirements.txt'
-            }
-        }
         stage('Lint') {
             steps {
                 sh 'flake8 src/model'
