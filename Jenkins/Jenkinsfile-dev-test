@@ -16,15 +16,19 @@ pipeline {
 	    }
     }
     stages {
+        stage('install requirements') {
+            steps {
+                sh 'python -m pip install -r requirements.txt'
+            }
+        }
         stage('Lint') {
             steps {
-                sh 'python -m pip install flake8'
                 sh 'flake8 src/model'
             }
         }
         stage('Unit test') {
             steps {
-                sh 'python tests/'
+                sh 'pytest tests/'
             }
         }
     }
