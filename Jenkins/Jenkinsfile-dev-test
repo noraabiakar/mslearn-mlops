@@ -12,28 +12,23 @@ pipeline {
     agent {
         docker { 
 	        image 'python:3.10' 
+            args "--user 0:0"
 	    }
     }
     stages {
         stage('install requirements') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'python3 -m pip install -r requirements.txt --user'
-                }
+                sh 'python3 -m pip install -r requirements.txt --user'
             }
         }
         stage('Lint') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'flake8 src/model'
-                }
+                sh 'flake8 src/model'
             }
         }
         stage('Unit test') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'pytest tests/'
-                }
+                sh 'pytest tests/'
             }
         }
     }
