@@ -22,6 +22,7 @@ pipeline {
         }
         stage('Unit test') {
             steps {
+                sh 'echo $param'
                 sh 'pytest tests/'
             }
         }
